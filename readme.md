@@ -45,16 +45,12 @@ docker run --name staff-postgres \
 ### b. Create .env file inside /backend
 
 ```env
-Copy
-Edit
 DATABASE_URL="postgresql://admin:password@localhost:5432/staff_db"
 ADMIN_PASSWORD="your_secure_password_here"
 ```
 
 ### c. Setup Conda Environment
 ```bash
-Copy
-Edit
 conda create --name staff-app python=3.9 -y
 conda activate staff-app
 ```
