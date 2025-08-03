@@ -1,60 +1,55 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# dependencies
-node_modules/
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
 
-# Expo
-.expo/
+# Distribution / packaging
+build/
 dist/
-web-build/
-expo-env.d.ts
+*.egg-info/
 
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
+# Environment variables
+.env
+.env.*
 
-# Metro
-.metro-health-check*
+# Uploads and media
+uploads/
+media/
+static/uploads/
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
+# Pytest / test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs and debugging
+*.log
+debug.log
 
 # macOS
 .DS_Store
-*.pem
 
-# local env files
-.env*.local
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
 
-.env
+# Jupyter notebooks
+.ipynb_checkpoints/
 
-# typescript
-*.tsbuildinfo
-
-app-example
-
-# Editor directories and files
-.idea/
-.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Build results
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-build/
-dist/
-uploads/
-.env
+# MyPy / type-checking
+.mypy_cache/
+.dmypy.json
+.pyre/
