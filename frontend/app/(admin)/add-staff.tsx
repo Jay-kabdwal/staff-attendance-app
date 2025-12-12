@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,12 +9,12 @@ import {
   Image,
   ActivityIndicator,
   ScrollView,
-} from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
-import axios from 'axios';
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
 
 export default function AddStaffScreen() {
-  const [staffName, setStaffName] = useState('');
+  const [staffName, setStaffName] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,44 +33,53 @@ export default function AddStaffScreen() {
 
   const handleAddStaff = async () => {
     if (!staffName || !image) {
-      Alert.alert('Error', 'Please enter a name and select an image.');
+      Alert.alert("Error", "Please enter a name and select an image.");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      const backendUrl = 'http://192.168.29.221:8000'; // 🔁 Change to your IP
+      const backendUrl = " http://10.98.226.183:8000"; // 🔁 Change to your IP
 
       // Step 1: Add the staff
       const staffFormData = new FormData();
-      staffFormData.append('name', staffName);
+      staffFormData.append("name", staffName);
 
-      const staffRes = await axios.post(`${backendUrl}/api/staff`, staffFormData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const staffRes = await axios.post(
+        `${backendUrl}/api/staff`,
+        staffFormData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       const staffId = staffRes.data.id;
 
       // Step 2: Upload image
       const imageFormData = new FormData();
-      imageFormData.append('file', {
+      imageFormData.append("file", {
         uri: image,
-        type: 'image/jpeg',
-        name: 'training.jpg',
+        type: "image/jpeg",
+        name: "training.jpg",
       } as any);
 
-      await axios.post(`${backendUrl}/api/staff/${staffId}/upload-image`, imageFormData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      await axios.post(
+        `${backendUrl}/api/staff/${staffId}/upload-image`,
+        imageFormData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
-      Alert.alert('Success', `Staff '${staffName}' added with ID: ${staffId}`);
-      setStaffName('');
+      Alert.alert("Success", `Staff '${staffName}' added with ID: ${staffId}`);
+      setStaffName("");
       setImage(null);
     } catch (error: any) {
       console.error(error);
-      const detail = error?.response?.data?.detail || 'An unexpected error occurred.';
-      Alert.alert('Error', detail);
+      const detail =
+        error?.response?.data?.detail || "An unexpected error occurred.";
+      Alert.alert("Error", detail);
     } finally {
       setIsLoading(false);
     }
@@ -108,18 +117,18 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     paddingTop: 50,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     flexGrow: 1,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     padding: 10,
     borderRadius: 5,
     marginBottom: 20,
@@ -128,7 +137,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 100,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginVertical: 20,
   },
   loader: {

@@ -1,5 +1,5 @@
 // MarkAttendanceScreen.tsx
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,51 +8,52 @@ import {
   Alert,
   TextInput,
   ActivityIndicator,
-} from 'react-native';
-import { CameraView, useCameraPermissions } from 'expo-camera';
-import type { CameraCapturedPicture } from 'expo-camera';
-import axios from 'axios';
+} from "react-native";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import type { CameraCapturedPicture } from "expo-camera";
+import axios from "axios";
 
 export default function MarkAttendanceScreen() {
-  const [staffId, setStaffId] = useState('');
+  const [staffId, setStaffId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const cameraRef = useRef<CameraView>(null);
   const [permission, requestPermission] = useCameraPermissions();
 
   const markAttendance = async () => {
     if (!staffId.trim()) {
-      Alert.alert('Input Required', 'Please enter your Staff ID.');
+      Alert.alert("Input Required", "Please enter your Staff ID.");
       return;
     }
 
     if (!cameraRef.current) {
-      Alert.alert('Camera Error', 'Camera is not ready.');
+      Alert.alert("Camera Error", "Camera is not ready.");
       return;
     }
 
     try {
       setIsLoading(true);
-      const photo: CameraCapturedPicture = await cameraRef.current.takePictureAsync({ quality: 0.5 });
+      const photo: CameraCapturedPicture =
+        await cameraRef.current.takePictureAsync({ quality: 0.5 });
 
       const formData = new FormData();
-      formData.append('file', {
+      formData.append("file", {
         uri: photo.uri,
-        type: 'image/jpeg',
-        name: 'attendance.jpg',
+        type: "image/jpeg",
+        name: "attendance.jpg",
       } as any);
 
-      const backendUrl = `http://192.168.29.221:8000/api/attendance/${staffId}/mark`;
+      const backendUrl = ` http://10.98.226.183:8000/api/attendance/${staffId}/mark`;
 
       const response = await axios.post(backendUrl, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
-      Alert.alert('Success', response.data.message || 'Attendance marked.');
-      setStaffId('');
+      Alert.alert("Success", response.data.message || "Attendance marked.");
+      setStaffId("");
     } catch (error: any) {
       const message =
-        error?.response?.data?.detail || 'Failed to mark attendance.';
-      Alert.alert('Error', message);
+        error?.response?.data?.detail || "Failed to mark attendance.";
+      Alert.alert("Error", message);
     } finally {
       setIsLoading(false);
     }
@@ -103,39 +104,39 @@ export default function MarkAttendanceScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#fff' },
+  container: { flex: 1, backgroundColor: "#fff" },
   camera: { flex: 1 },
   centerContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 20,
   },
   message: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
-    color: '#666',
+    color: "#666",
     fontSize: 16,
   },
   inputContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: "#f0f0f0",
     padding: 15,
     paddingTop: 50,
   },
   input: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 5,
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
   },
   buttonContainer: {
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
     borderTopWidth: 1,
-    borderTopColor: '#f0f0f0',
+    borderTopColor: "#f0f0f0",
   },
 });

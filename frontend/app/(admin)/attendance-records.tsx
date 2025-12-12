@@ -1,21 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Button } from 'react-native';
-import axios from 'axios';
-import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Button,
+} from "react-native";
+import axios from "axios";
+import { useRouter } from "expo-router";
 
 export default function AttendanceRecordsScreen() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     const fetchAttendance = async () => {
       try {
-        const res = await axios.get('http://192.168.29.221:8000/api/attendance');
+        const res = await axios.get(
+          " http://10.98.226.183:8000/api/attendance"
+        );
         setRecords(res.data);
       } catch (err: any) {
-        setError('Failed to fetch attendance records.');
+        setError("Failed to fetch attendance records.");
       } finally {
         setLoading(false);
       }
@@ -52,24 +61,24 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     paddingTop: 50,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   title: {
     fontSize: 22,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   error: {
-    color: 'red',
+    color: "red",
     fontSize: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   record: {
     marginBottom: 15,
     padding: 10,
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 6,
   },
 });

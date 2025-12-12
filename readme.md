@@ -62,7 +62,7 @@ conda install -c conda-forge fastapi uvicorn sqlalchemy psycopg2 numpy face-reco
 ### e.Run the Backend Server
 ```bash
 cd backend
-uvicorn main:app --reload --host 127.0.0.1
+python -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 *** Your backend should now be running at http://127.0.0.1:8000 ***
